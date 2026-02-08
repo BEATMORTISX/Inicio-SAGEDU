@@ -1,1 +1,1614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complejo Virtual EPE - Portal de Acceso</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== VARIABLES Y RESET ===== */
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --info-color: #3498db;
+            --light-color: #f5f5f5;
+            --dark-color: #2c3e50;
+            --gray-color: #7f8c8d;
+            --border-color: #bdc3c7;
+            --card-bg: #ffffff;
+            
+            --gradient-primary: linear-gradient(135deg, #1a1a1a, #2c3e50);
+            --gradient-secondary: linear-gradient(135deg, #2c3e50, #34495e);
+            --gradient-success: linear-gradient(135deg, #27ae60, #2ecc71);
+            --gradient-warning: linear-gradient(135deg, #f39c12, #f1c40f);
+            --gradient-danger: linear-gradient(135deg, #e74c3c, #c0392b);
+            --gradient-info: linear-gradient(135deg, #3498db, #2980b9);
+            
+            --radius: 8px;
+            --radius-lg: 12px;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.15);
+            --shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* ===== CONTAINERS ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* ===== HEADER ===== */
+        .header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        
+        .logo-text p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(rgba(26, 26, 26, 0.9), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            padding: 4rem 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-title p {
+            color: var(--gray-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border-top: 4px solid var(--accent-color);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            color: var(--gray-color);
+        }
+        
+        /* ===== FORMS ===== */
+        .form-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+        
+        .form-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .form-body {
+            padding: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .form-link {
+            color: var(--info-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .form-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+        }
+        
+        .btn-success {
+            background: var(--gradient-success);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: var(--gradient-warning);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: var(--gradient-danger);
+            color: white;
+        }
+        
+        .btn-info {
+            background: var(--gradient-info);
+            color: white;
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        /* ===== ALERTS ===== */
+        .alert {
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid var(--danger-color);
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid var(--warning-color);
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid var(--info-color);
+        }
+        
+        /* ===== REGISTRO STEPS ===== */
+        .registration-steps {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--light-color);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .step.active {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: white;
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step.active .step-number {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        /* ===== SEARCH FORM ===== */
+        .search-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-form .form-control {
+            flex: 1;
+        }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        
+        .footer-section p {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .registration-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* ===== UTILITY CLASSES ===== */
+        .text-center { text-align: center; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .d-flex { display: flex; }
+        .justify-center { justify-content: center; }
+        .align-center { align-items: center; }
+        .gap-1 { gap: 0.5rem; }
+        .gap-2 { gap: 1rem; }
+        .gap-3 { gap: 1.5rem; }
+        .w-100 { width: 100%; }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="#" class="logo" id="home-link">
+                <div class="logo-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Complejo Virtual EPE</h1>
+                    <p>Sistema CRM Educativo</p>
+                </div>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#" class="nav-link active" id="nav-home">
+                    <i class="fas fa-home"></i> Inicio
+                </a>
+                <a href="#" class="nav-link" id="nav-login">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                </a>
+                <a href="#" class="nav-link" id="nav-register">
+                    <i class="fas fa-user-plus"></i> Registrarse
+                </a>
+                <a href="https://sagedu.netlify.app/" class="nav-link" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Ir al Sistema
+                </a>
+            </nav>
+        </div>
+    </header>
 
+    <!-- ===== PÁGINA DE INICIO ===== -->
+    <main id="home-page">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-content">
+                <h2>Bienvenido al Complejo Virtual EPE</h2>
+                <p>Sistema integral de gestión educativa para planteles, directores, docentes y participantes. Accede a herramientas avanzadas para optimizar la administración educativa.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary btn-lg" id="hero-login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                    </button>
+                    <button class="btn btn-secondary btn-lg" id="hero-register-btn">
+                        <i class="fas fa-user-plus"></i> Registrarse
+                    </button>
+                    <a href="https://sagedu.netlify.app/" class="btn btn-success btn-lg" target="_blank">
+                        <i class="fas fa-rocket"></i> Ir al Sistema
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>¿Qué Ofrecemos?</h2>
+                    <p>Una plataforma completa para la gestión educativa con múltiples funcionalidades</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <h3>Gestión de Planteles</h3>
+                        <p>Administra múltiples planteles educativos, directores, docentes y participantes desde un solo lugar.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h3>Panel Docente</h3>
+                        <p>Los docentes pueden crear formaciones, gestionar participantes y realizar seguimiento académico.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>Participantes</h3>
+                        <p>Los estudiantes pueden inscribirse en formaciones, ver su progreso y descargar certificados.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Reportes y Estadísticas</h3>
+                        <p>Genera reportes detallados, estadísticas y análisis del rendimiento educativo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="hero" style="background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(26, 26, 26, 0.9)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+            <div class="container hero-content">
+                <h2>¿Listo para comenzar?</h2>
+                <p>Únete a nuestra plataforma y transforma la gestión educativa de tu institución.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-warning btn-lg" id="cta-register-btn">
+                        <i class="fas fa-user-plus"></i> Crear Cuenta
+                    </button>
+                    <a href="https://sagedu.netlify.app/" class="btn btn-info btn-lg" target="_blank">
+                        <i class="fas fa-eye"></i> Ver Demo
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== PÁGINA DE LOGIN ===== -->
+    <div id="login-page" class="hidden">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</h2>
+                    <p>Accede a tu cuenta del sistema</p>
+                </div>
+                
+                <div class="form-body">
+                    <div id="login-alert" class="alert hidden"></div>
+                    
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-username">
+                                <i class="fas fa-user"></i> Usuario o Email
+                            </label>
+                            <input type="text" id="login-username" class="form-control" placeholder="Ingrese su usuario o email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="login-password">
+                                <i class="fas fa-lock"></i> Contraseña
+                            </label>
+                            <input type="password" id="login-password" class="form-control" placeholder="Ingrese su contraseña" required>
+                            <div class="d-flex justify-center mt-1">
+                                <button type="button" id="toggle-password" class="btn btn-sm">
+                                    <i class="fas fa-eye"></i> Mostrar Contraseña
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="form-footer">
+                        <p>¿No tienes cuenta? <a href="#" class="form-link" id="go-to-register">Regístrate aquí</a></p>
+                        <p>¿Olvidaste tu contraseña? <a href="#" class="form-link" id="forgot-password">Recuperar contraseña</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PÁGINA DE REGISTRO ===== -->
+    <div id="register-page" class="hidden">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2><i class="fas fa-user-plus"></i> Registrarse</h2>
+                    <p>Crea tu cuenta en el sistema</p>
+                </div>
+                
+                <div class="form-body">
+                    <div class="registration-steps">
+                        <div class="step active" id="step-1" data-step="1">
+                            <div class="step-number">1</div>
+                            <span>Tipo de Usuario</span>
+                        </div>
+                        <div class="step" id="step-2" data-step="2">
+                            <div class="step-number">2</div>
+                            <span>Verificación</span>
+                        </div>
+                        <div class="step" id="step-3" data-step="3">
+                            <div class="step-number">3</div>
+                            <span>Datos de Acceso</span>
+                        </div>
+                    </div>
+                    
+                    <div id="register-alert" class="alert hidden"></div>
+                    
+                    <!-- Paso 1: Selección de Tipo -->
+                    <div id="step-1-content">
+                        <h3 class="text-center mb-3">Selecciona tu tipo de usuario</h3>
+                        <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                            <div class="feature-card select-user-type" data-type="plantel">
+                                <div class="feature-icon">
+                                    <i class="fas fa-school"></i>
+                                </div>
+                                <h3>Plantel</h3>
+                                <p>Institución educativa</p>
+                            </div>
+                            
+                            <div class="feature-card select-user-type" data-type="director">
+                                <div class="feature-icon">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <h3>Director</h3>
+                                <p>Director de plantel</p>
+                            </div>
+                            
+                            <div class="feature-card select-user-type" data-type="docente">
+                                <div class="feature-icon">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <h3>Docente</h3>
+                                <p>Profesor/instructor</p>
+                            </div>
+                            
+                            <div class="feature-card select-user-type" data-type="participante">
+                                <div class="feature-icon">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <h3>Participante</h3>
+                                <p>Estudiante/participante</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-footer mt-3">
+                            <p><i class="fas fa-info-circle"></i> Para registrarse debe estar previamente registrado en el sistema por el administrador</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Paso 2: Verificación -->
+                    <div id="step-2-content" class="hidden">
+                        <h3 class="text-center mb-3" id="step-2-title">Verifica tu identidad</h3>
+                        
+                        <!-- Formulario para Plantel -->
+                        <div id="plantel-verification" class="hidden">
+                            <div class="form-group">
+                                <label for="plantel-codigo">
+                                    <i class="fas fa-hashtag"></i> Código de Plantel
+                                </label>
+                                <input type="text" id="plantel-codigo" class="form-control" placeholder="Ej: PVE-001">
+                                <small class="text-muted">Código asignado por el administrador</small>
+                            </div>
+                            
+                            <button class="btn btn-info w-100" id="verify-plantel">
+                                <i class="fas fa-search"></i> Verificar Plantel
+                            </button>
+                            
+                            <div id="plantel-info" class="hidden mt-3">
+                                <div class="alert alert-info">
+                                    <h4>Plantel Encontrado</h4>
+                                    <div id="plantel-details"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Formulario para Director/Docente/Participante -->
+                        <div id="person-verification" class="hidden">
+                            <div class="form-group">
+                                <label for="person-cedula">
+                                    <i class="fas fa-id-card"></i> Cédula de Identidad
+                                </label>
+                                <input type="text" id="person-cedula" class="form-control" placeholder="Ej: V-12345678">
+                            </div>
+                            
+                            <button class="btn btn-info w-100" id="verify-person">
+                                <i class="fas fa-search"></i> Verificar Identidad
+                            </button>
+                            
+                            <div id="person-info" class="hidden mt-3">
+                                <div class="alert alert-info">
+                                    <h4>Información Encontrada</h4>
+                                    <div id="person-details"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Paso 3: Datos de Acceso -->
+                    <div id="step-3-content" class="hidden">
+                        <h3 class="text-center mb-3">Crea tus datos de acceso</h3>
+                        
+                        <form id="final-register-form">
+                            <div class="form-group">
+                                <label for="register-email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </label>
+                                <input type="email" id="register-email" class="form-control" placeholder="tu@email.com" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="register-username">
+                                    <i class="fas fa-user"></i> Nombre de Usuario
+                                </label>
+                                <input type="text" id="register-username" class="form-control" placeholder="Elige un nombre de usuario" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="register-password">
+                                    <i class="fas fa-lock"></i> Contraseña
+                                </label>
+                                <input type="password" id="register-password" class="form-control" placeholder="Mínimo 6 caracteres" required minlength="6">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="register-confirm-password">
+                                    <i class="fas fa-lock"></i> Confirmar Contraseña
+                                </label>
+                                <input type="password" id="register-confirm-password" class="form-control" placeholder="Repite tu contraseña" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-secondary" id="prev-step">
+                                        <i class="fas fa-arrow-left"></i> Atrás
+                                    </button>
+                                    <button type="submit" class="btn btn-success btn-block">
+                                        <i class="fas fa-check"></i> Completar Registro
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Complejo Virtual EPE</h3>
+                    <p>Sistema CRM Educativo para la gestión integral de instituciones educativas.</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Venezuela</p>
+                    <p><i class="fas fa-envelope"></i> info@complejovirtualepe.edu.ve</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" id="footer-home">Inicio</a></li>
+                        <li><a href="#" id="footer-login">Iniciar Sesión</a></li>
+                        <li><a href="#" id="footer-register">Registrarse</a></li>
+                        <li><a href="https://sagedu.netlify.app/" target="_blank">Sistema Principal</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Soporte</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Contactar Soporte</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Complejo Virtual EPE. Todos los derechos reservados.</p>
+                <p>Versión 4.0.0</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== VARIABLES GLOBALES =====
+        let currentRegistrationStep = 1;
+        let selectedUserType = null;
+        let verificationData = null;
+        
+        // URL de la base de datos en producción
+        const PRODUCTION_URL = 'https://sagedu.netlify.app/';
+        
+        // ===== INICIALIZACIÓN =====
+        document.addEventListener('DOMContentLoaded', function() {
+            inicializarNavegacion();
+            inicializarFormularios();
+            inicializarEventos();
+            
+            // Verificar si hay parámetros en la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page');
+            
+            if (page === 'login') {
+                showPage('login');
+            } else if (page === 'register') {
+                showPage('register');
+            }
+        });
+        
+        // ===== NAVEGACIÓN =====
+        function inicializarNavegacion() {
+            // Navegación principal
+            document.getElementById('nav-home').addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage('home');
+                setActiveNav('home');
+            });
+            
+            document.getElementById('nav-login').addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage('login');
+                setActiveNav('login');
+            });
+            
+            document.getElementById('nav-register').addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage('register');
+                setActiveNav('register');
+                resetRegistration();
+            });
+            
+            document.getElementById('home-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage('home');
+                setActiveNav('home');
+            });
+            
+            // Botones del hero
+            document.getElementById('hero-login-btn').addEventListener('click', function() {
+                showPage('login');
+                setActiveNav('login');
+            });
+            
+            document.getElementById('hero-register-btn').addEventListener('click', function() {
+                showPage('register');
+                setActiveNav('register');
+                resetRegistration();
+            });
+            
+            document.getElementById('cta-register-btn').addEventListener('click', function() {
+                showPage('register');
+                setActiveNav('register');
+                resetRegistration();
+            });
+            
+            // Enlaces del formulario
+            document.getElementById('go-to-register').addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage('register');
+                setActiveNav('register');
+                resetRegistration();
+            });
+            
+            // Footer links
+            document.getElementById('footer-home').addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage('home');
+                setActiveNav('home');
+            });
+            
+            document.getElementById('footer-login').addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage('login');
+                setActiveNav('login');
+            });
+            
+            document.getElementById('footer-register').addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage('register');
+                setActiveNav('register');
+                resetRegistration();
+            });
+        }
+        
+        function showPage(pageName) {
+            // Ocultar todas las páginas
+            document.getElementById('home-page').classList.add('hidden');
+            document.getElementById('login-page').classList.add('hidden');
+            document.getElementById('register-page').classList.add('hidden');
+            
+            // Mostrar la página solicitada
+            document.getElementById(`${pageName}-page`).classList.remove('hidden');
+            
+            // Scroll al inicio
+            window.scrollTo(0, 0);
+        }
+        
+        function setActiveNav(page) {
+            // Remover activo de todos
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Agregar activo al correspondiente
+            if (page === 'home') {
+                document.getElementById('nav-home').classList.add('active');
+            } else if (page === 'login') {
+                document.getElementById('nav-login').classList.add('active');
+            } else if (page === 'register') {
+                document.getElementById('nav-register').classList.add('active');
+            }
+        }
+        
+        // ===== FORMULARIOS =====
+        function inicializarFormularios() {
+            // Login form
+            document.getElementById('login-form').addEventListener('submit', handleLogin);
+            
+            // Toggle password visibility
+            document.getElementById('toggle-password').addEventListener('click', function() {
+                const passwordInput = document.getElementById('login-password');
+                const icon = this.querySelector('i');
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i> Ocultar Contraseña';
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                    this.innerHTML = '<i class="fas fa-eye"></i> Mostrar Contraseña';
+                }
+            });
+            
+            // Forgot password
+            document.getElementById('forgot-password').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Función de recuperación de contraseña en desarrollo. Contacte al administrador.');
+            });
+        }
+        
+        // ===== REGISTRO =====
+        function inicializarEventos() {
+            // Selección de tipo de usuario
+            document.querySelectorAll('.select-user-type').forEach(card => {
+                card.addEventListener('click', function() {
+                    selectedUserType = this.dataset.type;
+                    
+                    // Remover selección anterior
+                    document.querySelectorAll('.select-user-type').forEach(c => {
+                        c.style.border = '2px solid #ddd';
+                        c.style.transform = 'translateY(0)';
+                    });
+                    
+                    // Marcar como seleccionado
+                    this.style.border = '2px solid #3498db';
+                    this.style.transform = 'translateY(-5px)';
+                    
+                    // Avanzar al paso 2
+                    goToStep(2);
+                });
+            });
+            
+            // Botones de verificación
+            document.getElementById('verify-plantel').addEventListener('click', verifyPlantel);
+            document.getElementById('verify-person').addEventListener('click', verifyPerson);
+            
+            // Navegación entre pasos
+            document.getElementById('prev-step').addEventListener('click', function() {
+                if (currentRegistrationStep > 1) {
+                    goToStep(currentRegistrationStep - 1);
+                }
+            });
+            
+            // Formulario final de registro
+            document.getElementById('final-register-form').addEventListener('submit', handleFinalRegistration);
+        }
+        
+        function goToStep(step) {
+            currentRegistrationStep = step;
+            
+            // Actualizar pasos visualmente
+            document.querySelectorAll('.step').forEach(stepEl => {
+                stepEl.classList.remove('active');
+                if (parseInt(stepEl.dataset.step) === step) {
+                    stepEl.classList.add('active');
+                }
+            });
+            
+            // Ocultar todos los contenidos
+            document.getElementById('step-1-content').classList.add('hidden');
+            document.getElementById('step-2-content').classList.add('hidden');
+            document.getElementById('step-3-content').classList.add('hidden');
+            
+            // Mostrar contenido del paso actual
+            document.getElementById(`step-${step}-content`).classList.remove('hidden');
+            
+            // Configurar contenido según el paso
+            if (step === 2) {
+                setupStep2();
+            } else if (step === 3) {
+                setupStep3();
+            }
+        }
+        
+        function setupStep2() {
+            // Configurar título
+            const title = document.getElementById('step-2-title');
+            title.textContent = `Verifica tu identidad como ${selectedUserType}`;
+            
+            // Mostrar formulario correspondiente
+            document.getElementById('plantel-verification').classList.add('hidden');
+            document.getElementById('person-verification').classList.add('hidden');
+            
+            if (selectedUserType === 'plantel') {
+                document.getElementById('plantel-verification').classList.remove('hidden');
+                document.getElementById('plantel-codigo').value = '';
+                document.getElementById('plantel-info').classList.add('hidden');
+            } else {
+                document.getElementById('person-verification').classList.remove('hidden');
+                document.getElementById('person-cedula').value = '';
+                document.getElementById('person-info').classList.add('hidden');
+            }
+        }
+        
+        function setupStep3() {
+            // Autocompletar email si está disponible en verificationData
+            if (verificationData && verificationData.email) {
+                document.getElementById('register-email').value = verificationData.email;
+            }
+        }
+        
+        function resetRegistration() {
+            currentRegistrationStep = 1;
+            selectedUserType = null;
+            verificationData = null;
+            
+            // Resetear pasos visuales
+            document.querySelectorAll('.step').forEach(stepEl => {
+                stepEl.classList.remove('active');
+                if (parseInt(stepEl.dataset.step) === 1) {
+                    stepEl.classList.add('active');
+                }
+            });
+            
+            // Mostrar paso 1
+            document.getElementById('step-1-content').classList.remove('hidden');
+            document.getElementById('step-2-content').classList.add('hidden');
+            document.getElementById('step-3-content').classList.add('hidden');
+            
+            // Limpiar selección de tipo
+            document.querySelectorAll('.select-user-type').forEach(c => {
+                c.style.border = '2px solid #ddd';
+                c.style.transform = 'translateY(0)';
+            });
+            
+            // Limpiar alertas
+            hideAlert('register');
+        }
+        
+        // ===== VERIFICACIÓN =====
+        async function verifyPlantel() {
+            const codigo = document.getElementById('plantel-codigo').value.trim();
+            
+            if (!codigo) {
+                showAlert('register', 'Ingrese el código del plantel', 'error');
+                return;
+            }
+            
+            showAlert('register', 'Buscando plantel...', 'info');
+            
+            try {
+                // En producción, esto haría una llamada a la API
+                // Por ahora simulamos con datos de ejemplo
+                
+                // Datos de ejemplo para diferentes códigos
+                const plantelesEjemplo = {
+                    'PVE-001': {
+                        nombre: 'Complejo Virtual EPE Principal',
+                        codigoDependencia: '001',
+                        estado: 'Distrito Capital',
+                        municipio: 'Libertador',
+                        parroquia: 'Catedral',
+                        direccion: 'Av. Principal #123',
+                        ciudad: 'Caracas',
+                        email: 'info@complejovirtualepe.edu.ve',
+                        telefono: '+58 212-555-0100'
+                    },
+                    'PVE-002': {
+                        nombre: 'Sede Norte',
+                        codigoDependencia: '002',
+                        estado: 'Miranda',
+                        municipio: 'Sucre',
+                        parroquia: 'Petare',
+                        direccion: 'Calle Principal #456',
+                        ciudad: 'Caracas',
+                        email: 'norte@complejovirtualepe.edu.ve',
+                        telefono: '+58 212-555-0200'
+                    },
+                    'PVE-003': {
+                        nombre: 'Sede Sur',
+                        codigoDependencia: '003',
+                        estado: 'Miranda',
+                        municipio: 'Baruta',
+                        parroquia: 'El Cafetal',
+                        direccion: 'Av. Sur #789',
+                        ciudad: 'Caracas',
+                        email: 'sur@complejovirtualepe.edu.ve',
+                        telefono: '+58 212-555-0300'
+                    }
+                };
+                
+                // Simular delay de red
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const plantel = plantelesEjemplo[codigo.toUpperCase()];
+                
+                if (plantel) {
+                    verificationData = {
+                        tipo: 'plantel',
+                        id: codigo.toUpperCase(),
+                        nombre: plantel.nombre,
+                        email: plantel.email,
+                        detalles: plantel
+                    };
+                    
+                    // Mostrar información
+                    document.getElementById('plantel-details').innerHTML = `
+                        <p><strong>Nombre:</strong> ${plantel.nombre}</p>
+                        <p><strong>Código Dependencia:</strong> ${plantel.codigoDependencia}</p>
+                        <p><strong>Ubicación:</strong> ${plantel.estado}, ${plantel.municipio}, ${plantel.parroquia}</p>
+                        <p><strong>Dirección:</strong> ${plantel.direccion}, ${plantel.ciudad}</p>
+                        <p><strong>Contacto:</strong> ${plantel.telefono}</p>
+                    `;
+                    
+                    document.getElementById('plantel-info').classList.remove('hidden');
+                    showAlert('register', 'Plantel verificado correctamente', 'success');
+                    
+                    // Avanzar al paso 3 después de 1 segundo
+                    setTimeout(() => goToStep(3), 1000);
+                    
+                } else {
+                    showAlert('register', 'No se encontró un plantel con ese código', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Error al verificar plantel:', error);
+                showAlert('register', 'Error al verificar plantel', 'error');
+            }
+        }
+        
+        async function verifyPerson() {
+            const cedula = document.getElementById('person-cedula').value.trim();
+            
+            if (!cedula) {
+                showAlert('register', 'Ingrese su cédula de identidad', 'error');
+                return;
+            }
+            
+            showAlert('register', 'Verificando identidad...', 'info');
+            
+            try {
+                // En producción, esto haría una llamada a la API
+                // Por ahora simulamos con datos de ejemplo
+                
+                // Datos de ejemplo para diferentes cédulas
+                const personasEjemplo = {
+                    'V-12345678': {
+                        tipo: 'director',
+                        nombre: 'Carlos Rodríguez',
+                        plantel: 'Complejo Virtual EPE Principal',
+                        telefono: '+58 412-555-0101',
+                        email: 'carlos.rodriguez@complejovirtualepe.edu.ve',
+                        especialidad: null
+                    },
+                    'V-87654321': {
+                        tipo: 'docente',
+                        nombre: 'María González',
+                        plantel: 'Sede Norte',
+                        telefono: '+58 414-555-0202',
+                        email: 'maria.gonzalez@complejovirtualepe.edu.ve',
+                        especialidad: 'Matemáticas'
+                    },
+                    'V-11223344': {
+                        tipo: 'participante',
+                        nombre: 'Juan Pérez',
+                        plantel: 'Sede Sur',
+                        telefono: '+58 416-555-0303',
+                        email: 'juan.perez@estudiante.edu.ve',
+                        especialidad: null,
+                        edad: 25,
+                        formaciones: []
+                    }
+                };
+                
+                // Simular delay de red
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const persona = personasEjemplo[cedula];
+                
+                if (persona) {
+                    // Verificar que el tipo coincida
+                    if (persona.tipo !== selectedUserType) {
+                        showAlert('register', `Esta cédula está registrada como ${persona.tipo}, no como ${selectedUserType}`, 'error');
+                        return;
+                    }
+                    
+                    verificationData = {
+                        tipo: persona.tipo,
+                        id: cedula,
+                        nombre: persona.nombre,
+                        email: persona.email,
+                        detalles: persona
+                    };
+                    
+                    // Mostrar información
+                    let detallesHTML = `
+                        <p><strong>Nombre:</strong> ${persona.nombre}</p>
+                        <p><strong>Plantel:</strong> ${persona.plantel}</p>
+                        <p><strong>Teléfono:</strong> ${persona.telefono}</p>
+                    `;
+                    
+                    if (persona.especialidad) {
+                        detallesHTML += `<p><strong>Especialidad:</strong> ${persona.especialidad}</p>`;
+                    }
+                    
+                    if (persona.edad) {
+                        detallesHTML += `<p><strong>Edad:</strong> ${persona.edad} años</p>`;
+                    }
+                    
+                    document.getElementById('person-details').innerHTML = detallesHTML;
+                    document.getElementById('person-info').classList.remove('hidden');
+                    showAlert('register', 'Identidad verificada correctamente', 'success');
+                    
+                    // Avanzar al paso 3 después de 1 segundo
+                    setTimeout(() => goToStep(3), 1000);
+                    
+                } else {
+                    showAlert('register', 'No se encontró una persona con esa cédula', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Error al verificar persona:', error);
+                showAlert('register', 'Error al verificar identidad', 'error');
+            }
+        }
+        
+        // ===== REGISTRO FINAL =====
+        async function handleFinalRegistration(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('register-email').value.trim();
+            const username = document.getElementById('register-username').value.trim();
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            
+            // Validaciones
+            if (!email || !username || !password || !confirmPassword) {
+                showAlert('register', 'Complete todos los campos', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showAlert('register', 'Las contraseñas no coinciden', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showAlert('register', 'La contraseña debe tener al menos 6 caracteres', 'error');
+                return;
+            }
+            
+            if (!verificationData) {
+                showAlert('register', 'Debe verificar su identidad primero', 'error');
+                return;
+            }
+            
+            showAlert('register', 'Registrando cuenta...', 'info');
+            
+            try {
+                // En producción, esto enviaría los datos al servidor
+                // Simular registro exitoso
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Crear objeto de usuario
+                const nuevoUsuario = {
+                    id: generateId(),
+                    tipo: selectedUserType,
+                    username: username,
+                    email: email,
+                    nombre: verificationData.nombre,
+                    datos: verificationData.detalles,
+                    fechaRegistro: new Date().toISOString(),
+                    estado: 'activo'
+                };
+                
+                // Guardar en localStorage (en producción se guardaría en la base de datos)
+                guardarUsuarioEnLocalStorage(nuevoUsuario);
+                
+                showAlert('register', '¡Cuenta creada exitosamente! Redirigiendo...', 'success');
+                
+                // Redirigir al login después de 2 segundos
+                setTimeout(() => {
+                    showPage('login');
+                    setActiveNav('login');
+                    document.getElementById('login-username').value = username;
+                    document.getElementById('login-password').value = password;
+                    
+                    // Mostrar mensaje de éxito en login
+                    showAlert('login', 'Cuenta creada exitosamente. Ahora puede iniciar sesión.', 'success');
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Error al registrar:', error);
+                showAlert('register', 'Error al crear la cuenta', 'error');
+            }
+        }
+        
+        function guardarUsuarioEnLocalStorage(usuario) {
+            // En producción, esto se enviaría al servidor
+            // Por ahora guardamos en localStorage para demostración
+            const usuarios = JSON.parse(localStorage.getItem('usuarios_portal') || '[]');
+            usuarios.push(usuario);
+            localStorage.setItem('usuarios_portal', JSON.stringify(usuarios));
+            
+            console.log('Usuario registrado (localStorage):', usuario);
+        }
+        
+        // ===== LOGIN =====
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+            
+            if (!username || !password) {
+                showAlert('login', 'Complete todos los campos', 'error');
+                return;
+            }
+            
+            showAlert('login', 'Iniciando sesión...', 'info');
+            
+            try {
+                // En producción, esto haría una llamada a la API
+                // Por ahora simulamos con credenciales de ejemplo
+                
+                // Simular delay de red
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Credenciales de ejemplo
+                const credencialesValidas = [
+                    { username: 'admin', password: 'admin123', tipo: 'admin' },
+                    { username: 'plantel', password: 'plantel123', tipo: 'plantel' },
+                    { username: 'director', password: 'director123', tipo: 'director' },
+                    { username: 'docente', password: 'docente123', tipo: 'docente' },
+                    { username: 'participante', password: 'participante123', tipo: 'participante' }
+                ];
+                
+                const credencial = credencialesValidas.find(c => 
+                    c.username === username && c.password === password
+                );
+                
+                if (credencial) {
+                    showAlert('login', '¡Inicio de sesión exitoso! Redirigiendo al sistema...', 'success');
+                    
+                    // Guardar sesión (en producción usaría tokens JWT)
+                    localStorage.setItem('usuario_sesion', JSON.stringify({
+                        username: username,
+                        tipo: credencial.tipo,
+                        timestamp: new Date().toISOString()
+                    }));
+                    
+                    // Redirigir al sistema principal después de 2 segundos
+                    setTimeout(() => {
+                        window.location.href = PRODUCTION_URL;
+                    }, 2000);
+                    
+                } else {
+                    // Verificar en localStorage (usuarios registrados en el portal)
+                    const usuariosPortal = JSON.parse(localStorage.getItem('usuarios_portal') || '[]');
+                    const usuarioPortal = usuariosPortal.find(u => 
+                        u.username === username || u.email === username
+                    );
+                    
+                    if (usuarioPortal && password === '123456') { // Contraseña por defecto para demo
+                        showAlert('login', '¡Inicio de sesión exitoso! Redirigiendo...', 'success');
+                        
+                        localStorage.setItem('usuario_sesion', JSON.stringify({
+                            username: username,
+                            tipo: usuarioPortal.tipo,
+                            timestamp: new Date().toISOString()
+                        }));
+                        
+                        setTimeout(() => {
+                            // Redirigir o mostrar mensaje
+                            alert(`Bienvenido ${usuarioPortal.nombre}! En producción, esto redirigiría al sistema principal.`);
+                        }, 2000);
+                        
+                    } else {
+                        showAlert('login', 'Credenciales incorrectas', 'error');
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error en login:', error);
+                showAlert('login', 'Error al iniciar sesión', 'error');
+            }
+        }
+        
+        // ===== FUNCIONES AUXILIARES =====
+        function showAlert(context, message, type = 'info') {
+            const alertDiv = document.getElementById(`${context}-alert`);
+            alertDiv.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                ${message}
+            `;
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.classList.remove('hidden');
+            
+            // Auto-ocultar después de 5 segundos (excepto para errores críticos)
+            if (type !== 'error' || message.includes('exitoso')) {
+                setTimeout(() => {
+                    hideAlert(context);
+                }, 5000);
+            }
+        }
+        
+        function hideAlert(context) {
+            const alertDiv = document.getElementById(`${context}-alert`);
+            alertDiv.classList.add('hidden');
+        }
+        
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+        
+        // ===== INTEGRACIÓN CON EL SISTEMA PRINCIPAL =====
+        // Esta función se usaría en producción para sincronizar con la base de datos real
+        async function sincronizarConSistemaPrincipal(usuario) {
+            try {
+                // En producción, haría una petición POST al servidor
+                const response = await fetch(`${PRODUCTION_URL}/api/registrar`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(usuario)
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Error en la sincronización');
+                }
+                
+                return await response.json();
+                
+            } catch (error) {
+                console.error('Error al sincronizar:', error);
+                // En caso de error, guardar localmente para sincronización posterior
+                guardarParaSincronizacionPosterior(usuario);
+                throw error;
+            }
+        }
+        
+        function guardarParaSincronizacionPosterior(usuario) {
+            const pendientes = JSON.parse(localStorage.getItem('sincronizacion_pendiente') || '[]');
+            pendientes.push({
+                usuario: usuario,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('sincronizacion_pendiente', JSON.stringify(pendientes));
+            
+            console.warn('Usuario guardado para sincronización posterior:', usuario);
+        }
+        
+        // Intentar sincronizar pendientes al cargar la página
+        window.addEventListener('online', async () => {
+            const pendientes = JSON.parse(localStorage.getItem('sincronizacion_pendiente') || '[]');
+            if (pendientes.length > 0) {
+                console.log('Intentando sincronizar usuarios pendientes...');
+                // Implementar lógica de sincronización aquí
+            }
+        });
+    </script>
+</body>
+</html>
